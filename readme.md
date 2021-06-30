@@ -26,3 +26,15 @@ A simple dual-subtitle video player inspired by [Animelon](http://animelon.com/)
 The most useful parts would probably be
 
 - video-server.js, video.js and associated files, wherein I implemented the ability to transcode a video file live while also allowing the user to seek. You can look in video-server.js to see some of the other methods I _tried_ which in iteself could be educational.
+
+### License
+
+== GPL License
+
+Copyright (C) 2021 [Daniel Dowsett - eulerspill@protonmail.com]
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
