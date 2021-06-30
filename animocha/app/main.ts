@@ -19,8 +19,6 @@ TODO:
         * possible solution: copy instead of transcoding those ones
             * this would make a standard streaming interface too
             * see if it actually solves the problem
-    * npm build script that comments out electron-reloader
-    * reach out for testers
 */
 
 
@@ -44,7 +42,7 @@ const userData : any = {
     "leftCellProportion": "73%",
     "dictionaryPanelProportion": "40%",
     "files": {
-        //name -> {subtitles: {"eng": {"filePath": "", "offsetSeconds""}}, "jpn": {...}}
+        //name -> {subtitles: {eng: {filePath, offsetSeconds, index, choiceIndex}}, jpn: {...}}
     }
 }
 if (fs.existsSync(USER_DATA_FILE_PATH)) {
@@ -66,7 +64,6 @@ if (fs.existsSync(USER_DATA_FILE_PATH)) {
 let win : BrowserWindow;
 
 async function createWindow() {
-    // Create the browser window.
     win = new BrowserWindow({
     backgroundColor: "#fff",
     width: 1400,
@@ -74,7 +71,6 @@ async function createWindow() {
     show: false,
     webPreferences: {
         sandbox: true,
-
 
         //Context isolation is an Electron feature that allows developers to run code in preload scripts 
         //and in Electron APIs in a dedicated JavaScript context. In practice, that means that global objects 
@@ -88,8 +84,6 @@ async function createWindow() {
     });
   
     win.loadFile(path.join(__dirname, "frontend/app.html"));
-    //win.webContents.openDevTools();
-    
 
     win.maximize();
     win.show();
@@ -156,9 +150,7 @@ https://www.electronjs.org/docs/tutorial/security#14-do-not-use-openexternal-wit
 Shell's openExternal allows opening a given protocol URI with the desktop's native utilities. 
 On macOS, for instance, this function is similar to the open terminal command utility and will open 
 the specific application based on the URI and filetype association.
-
 */
-
 app.on('web-contents-created', (event, contents) => {
     contents.setWindowOpenHandler(info => {
         if (isSafeForExternalOpen(info)) {
