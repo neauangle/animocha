@@ -285,7 +285,7 @@ const subSelectionRadioTemplate = `
     <input type="radio" name="neauangle-subs-selection-{{language}}" 
         id="neauangle-subs-selection-{{language}}-input-radios-{{id}}" value="{{id}}"
         class="subs-selection-{{language}}"/>
-    <label for="neauangle-subs-selection-jpn-input-radios-{{id}}">{{title}}</label>
+    <label for="neauangle-subs-selection-{{language}}-input-radios-{{id}}">{{title}}</label>
 </div>
 `
 
@@ -568,7 +568,6 @@ async function addSubtitleTrack(subtitleTrack){
     for (let position of Object.keys(subtitleTreeInfo)){
         subtitleTreeInfo[position][language].container.style.display = subtitleTracks[language].active ? 'flex' : 'none';
     }
-    console.log('emitting', currentVideoInfo, subtitleTrack)
     emitEvent(NeauangleVideo.EVENTS.SUBTITLE_TRACK_READY, {subtitleTrack: subtitleTracks[language]});
 }
 
@@ -618,7 +617,6 @@ async function initStream(path, seekTo /*provide for seeks, rather than initial 
         playPauseButton.src = loadingSVGPath;
     }
 
-    console.log('here', currentSelectedFilePath);
     if (seekTo === undefined){
         emitEvent(NeauangleVideo.EVENTS.ABOUT_TO_LOAD_VIDEO, {filePath: currentSelectedFilePath});
     }
@@ -890,7 +888,6 @@ for (let subtitleContainer of [bottomSubtitlesContainer, topSubtitlesContainer])
 volumeBarBackground.addEventListener('mousedown', volumeBarMouseDownUp)
 function volumeBarMouseDownUp (e) {
     if (!volumeBarBackground.classList.contains('neauangle-disabled')){
-        console.log('here');
         const proportion = NeauangleVideo.UTIL.getRelativeMouseFromElement(e, 
             volumeBarBackground
         ).relativeX / volumeBarBackground.getBoundingClientRect().width;

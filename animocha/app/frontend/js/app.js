@@ -49,7 +49,6 @@ subtitlesPanel.style.height = (100-dictP) + '%';
 let dictionarySubtitlesSeparatorNewY = 0;
 
 let leftP = Number(userData["leftCellProportion"].slice(0,-1));
-console.log(leftP);
 leftCell.style.width = leftP+'%';
 rightCell.style.width = (100-leftP) + '%';
 let leftRightSeparatorNewX = 0;
@@ -110,7 +109,6 @@ document.addEventListener('mouseup', () => {
        for (element of document.getElementsByClassName('search-result-vocab-entry-sense-header')){
             if (element.hasAttribute('title')){
                 const tooltip = element.getAttribute('title').split('\n').join('<br/>');
-                console.log(element.getAttribute('title'), tooltip);
                 setTooltip(element, tooltip, {textAlign: 'left'});
                 element.removeAttribute('title');
             }
@@ -188,8 +186,6 @@ function createNew(initFilePath){
     });
     video.addEventListener(NeauangleVideo.EVENTS.ABOUT_TO_LOAD_VIDEO, (event) => {
         currentVideoFileName = event.data.filePath.split(/[\\/]/).pop();
-        console.log('updated currentVideoFileName', currentVideoFileName)
-        console.log(currentVideoFileName);
         if (!userData.files[currentVideoFileName]){
             //no need to save out yet
             userData.files[currentVideoFileName] = {
@@ -266,7 +262,6 @@ function createNew(initFilePath){
         const subtitleTrack = event.data.subtitleTrack;
         enableSubtitles(subtitleTrack);
         if (subtitleTrack.language === 'jpn'){
-            console.log(subtitleTrack);
             for (let i = 0; i < subtitleTrack.entries.length; ++i){
                 const entry = subtitleTrack.entries[i];
                 const subtitleRow = Templates.getSubttitleRow(entry.dialogue, entry);
@@ -416,7 +411,6 @@ scrollingSubsFontSizeInput.addEventListener('change', event => {
     }
     document.querySelector(':root').style.setProperty('--scrolling-subtitles-font-size', unitString);
     userData['scrollingSubtitleFontSize'] = unitString;
-    console.log(unitString);
     saveOutUserData();
 });
 

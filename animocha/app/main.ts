@@ -10,12 +10,10 @@ Initial setup was:
 TODO: 
 --estimated completion: 0.5 - 1 months
     * icon (dave?)
-    * add search text input for dictionary
+    * add search text input for dictionary?
         * make it come out from top right
     * add search for subtitle entries?
     * release gihub page, with pictures and feature list.
-    * fix up the aesthetics of the subtitle selection screen
-        * make the labels for the radios too so clicking them selects the radios
     * when video is not transcoded (e.g. video game doc), its height can exceed the bounds rather than showing vertical black bars
         * I think I'm okay with this.
         * possible solution: copy instead of transcoding those ones
