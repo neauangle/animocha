@@ -568,6 +568,7 @@ async function addSubtitleTrack(subtitleTrack){
     for (let position of Object.keys(subtitleTreeInfo)){
         subtitleTreeInfo[position][language].container.style.display = subtitleTracks[language].active ? 'flex' : 'none';
     }
+    console.log('emitting', currentVideoInfo, subtitleTrack)
     emitEvent(NeauangleVideo.EVENTS.SUBTITLE_TRACK_READY, {subtitleTrack: subtitleTracks[language]});
 }
 
@@ -596,6 +597,7 @@ function setSubtitleFontSize(language, unitString){
 
 async function initStream(path, seekTo /*provide for seeks, rather than initial file loads*/){
     replaceVideoPlayer();
+    await Promise.resolve();//we need to give people a chance to connect to our events (specifically ABOUT_TO_LOAD_VIDEO)
     
     currentSelectedFilePath = path;
     
@@ -616,6 +618,7 @@ async function initStream(path, seekTo /*provide for seeks, rather than initial 
         playPauseButton.src = loadingSVGPath;
     }
 
+    console.log('here', currentSelectedFilePath);
     if (seekTo === undefined){
         emitEvent(NeauangleVideo.EVENTS.ABOUT_TO_LOAD_VIDEO, {filePath: currentSelectedFilePath});
     }
@@ -638,11 +641,11 @@ async function initStream(path, seekTo /*provide for seeks, rather than initial 
         if (seekTo === undefined){
             currentVideoInfo = videoInfo;
             emitEvent(NeauangleVideo.EVENTS.VIDEO_LOADED, {videoInfo});
-            for (const subtitleTrack of Object.values(subtitleTracks)){
+/*             for (const subtitleTrack of Object.values(subtitleTracks)){
                 if (subtitleTrack.exists){
                     emitEvent(NeauangleVideo.EVENTS.SUBTITLE_TRACK_READY, {subtitleTrack});
                 }
-            }
+            } */
             volumeBarBackground.classList.remove('neauangle-disabled');
             volumeButton.classList.remove('neauangle-disabled');
             currentVideoIsUsingHTMLNativeVideo = streamPath === null;
@@ -682,8 +685,10 @@ async function initStream(path, seekTo /*provide for seeks, rather than initial 
         } else {
             playPauseButton.classList.remove('neauangle-animate-rotating');
         }
+        return true;
     } catch (error) {
         emitEvent(NeauangleVideo.EVENTS.ERROR, {type: NeauangleVideo.ERRORS.ERROR_LOADING_STREAM, error: error});
+        return false;
     }
 }
 

@@ -8,7 +8,7 @@ const rightCell = document.getElementById('right-cell');
 const leftRightSeparator = document.getElementById("left-right-separator");
 const dictionaryPanel =  document.getElementById('dictionary-panel');
 const subtitlesPanel =  document.getElementById('subtitles-panel');
-const subtitleRowsContainer = document.getElementById('subtitle-rows-container');
+let subtitleRowsContainer = document.getElementById('subtitle-rows-container');
 const tooltipShell = document.getElementById("tooltip-shell");
 const tooltip = document.getElementById("tooltip");
 const dictionarySubtitlesSeparator = document.getElementById("dictionary-subtitles-separator");
@@ -138,7 +138,13 @@ leftRightSeparator.addEventListener('mousedown', e => {
 
 
 
-
+function resetSubtitlesPanel(){
+    const parent = subtitleRowsContainer.parentElement;
+    subtitleRowsContainer.remove();
+    subtitleRowsContainer = document.createElement('div');
+    subtitleRowsContainer.id = 'subtitle-rows-container';
+    parent.appendChild(subtitleRowsContainer);
+}
 
 
 
@@ -151,7 +157,6 @@ function saveOutUserData(){
 async function setSubtitleFile(language, filePath){
     disableOpenSubtitleButton(bottomPanelSubtitleControls[language]);
     const subtitleTrack = await window.bridge.getSubtitleTrackFromFile(filePath, language);
-    console.log(subtitleTrack);
     if (subtitleTrack){
         video.addSubtitleTrack(subtitleTrack)
     } else{
@@ -173,6 +178,7 @@ function createNew(initFilePath){
     videoPlayerPanel.appendChild(videoContainer);
     video = NeauangleVideo.create(videoContainer, initFilePath);
     resetBottomPanel();
+    resetSubtitlesPanel();
 
     video.addEventListener(NeauangleVideo.EVENTS.ERROR, (event) => {
         console.log('uh oh spaghettio', event.data.type, event.data.error);
@@ -182,6 +188,8 @@ function createNew(initFilePath){
     });
     video.addEventListener(NeauangleVideo.EVENTS.ABOUT_TO_LOAD_VIDEO, (event) => {
         currentVideoFileName = event.data.filePath.split(/[\\/]/).pop();
+        console.log('updated currentVideoFileName', currentVideoFileName)
+        console.log(currentVideoFileName);
         if (!userData.files[currentVideoFileName]){
             //no need to save out yet
             userData.files[currentVideoFileName] = {
