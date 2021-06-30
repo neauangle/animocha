@@ -29,7 +29,7 @@ const path = require("path");
 const videoServer = require('./video-server');
 
 //automatically refresh electron windows when files change (are saved)
-require('electron-reload')(__dirname);
+//require('electron-reload')(__dirname);
 
 Menu.setApplicationMenu(null);
 

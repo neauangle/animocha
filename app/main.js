@@ -11,19 +11,15 @@ Initial setup was:
 TODO:
 --estimated completion: 0.5 - 1 months
     * icon (dave?)
-    * add search text input for dictionary
+    * add search text input for dictionary?
         * make it come out from top right
     * add search for subtitle entries?
     * release gihub page, with pictures and feature list.
-    * fix up the aesthetics of the subtitle selection screen
-        * make the labels for the radios too so clicking them selects the radios
     * when video is not transcoded (e.g. video game doc), its height can exceed the bounds rather than showing vertical black bars
         * I think I'm okay with this.
         * possible solution: copy instead of transcoding those ones
             * this would make a standard streaming interface too
             * see if it actually solves the problem
-    * npm build script that comments out electron-reloader
-    * reach out for testers
 */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.passIPCToClientSide = void 0;
@@ -33,7 +29,7 @@ const fs = require('fs');
 const path = require("path");
 const videoServer = require('./video-server');
 //automatically refresh electron windows when files change (are saved)
-require('electron-reload')(__dirname);
+//require('electron-reload')(__dirname);
 Menu.setApplicationMenu(null);
 const USER_DATA_FILE_PATH = app.getPath("userData") + "\\config.json";
 const userData = {
@@ -44,7 +40,7 @@ const userData = {
     "leftCellProportion": "73%",
     "dictionaryPanelProportion": "40%",
     "files": {
-    //name -> {subtitles: {"eng": {"filePath": "", "offsetSeconds""}}, "jpn": {...}}
+    //name -> {subtitles: {eng: {filePath, offsetSeconds, index, choiceIndex}}, jpn: {...}}
     }
 };
 if (fs.existsSync(USER_DATA_FILE_PATH)) {
@@ -62,7 +58,6 @@ if (fs.existsSync(USER_DATA_FILE_PATH)) {
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 async function createWindow() {
-    // Create the browser window.
     win = new electron_1.BrowserWindow({
         backgroundColor: "#fff",
         width: 1400,
@@ -80,7 +75,6 @@ async function createWindow() {
         }
     });
     win.loadFile(path.join(__dirname, "frontend/app.html"));
-    //win.webContents.openDevTools();
     win.maximize();
     win.show();
     //Adds a handler for an invokeable IPC. This handler will be called whenever a renderer calls 
@@ -136,7 +130,6 @@ https://www.electronjs.org/docs/tutorial/security#14-do-not-use-openexternal-wit
 Shell's openExternal allows opening a given protocol URI with the desktop's native utilities.
 On macOS, for instance, this function is similar to the open terminal command utility and will open
 the specific application based on the URI and filetype association.
-
 */
 app.on('web-contents-created', (event, contents) => {
     contents.setWindowOpenHandler(info => {
