@@ -10,9 +10,8 @@ Initial setup was:
 TODO: 
 --estimated completion: 0.5 - 1 months
     * icon (dave?)
-    * convert button not enabling
-    * subtitle entry play buttons seek, but if its paused it will stay paused- fix that and make it play
     * add search text input for dictionary
+        * make it come out from top right
     * add search for subtitle entries?
     * release gihub page, with pictures and feature list.
     * fix up the aesthetics of the subtitle selection screen
@@ -34,7 +33,7 @@ const path = require("path");
 const videoServer = require('./video-server');
 
 //automatically refresh electron windows when files change (are saved)
-//require('electron-reload')(__dirname);
+require('electron-reload')(__dirname);
 
 Menu.setApplicationMenu(null);
 

@@ -233,6 +233,7 @@ function createNew(initFilePath){
 
     video.addEventListener(NeauangleVideo.EVENTS.VIDEO_LOADED, (event) => {
         clearSettingsButton.disabled = false;
+        convertButton.classList.remove("disabled");
         const subtitlesHandled = {eng: false, jpn: false};
         const subtitleInfo = userData.files[currentVideoFileName].subtitles;
         for (let language of Object.keys(subtitleInfo)){
@@ -497,7 +498,7 @@ convertButton.addEventListener("click", async ev => {
             //from files, therefore not even guessable based on video info. Let alone
             //the problem of multiple tracks of the same language.
             await window.bridge.convertFileToHTMLFriendly(
-                video.getVideoInfo(), Object.values(subtitleTracks), handleConversionProgress
+                video.getVideoInfo(), video.getSubtitleTracks(), handleConversionProgress
             );
         }
         convertButton.classList.remove("disabled");

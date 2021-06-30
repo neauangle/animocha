@@ -1181,10 +1181,11 @@ document.addEventListener('keydown', (e) => {
 
 
 
-function seekToSubtitleIndex(language, index){
+async function seekToSubtitleIndex(language, index){
     const subtitleTrack = subtitleTracks[language];
     if (subtitleTrack && subtitleTrack.entries.length > index){
-        seek(subtitleTrack.entries[index].startTimeSeconds - subtitleTrack.offsetSeconds); 
+        await seek(subtitleTrack.entries[index].startTimeSeconds - subtitleTrack.offsetSeconds); 
+        videoPlayer.play();
     } else {
         emitEvent(NeauangleVideo.EVENTS.ERROR, {type: NeauangleVideo.ERRORS.ERROR_SEEKING_TO_SUBTITLE, error: "no matching track or index out of bounds"});
     }
@@ -1210,6 +1211,7 @@ if (initFilePath){
     initStream(initFilePath);
 }
 
+video.getSubtitleTracks = () => Object.values(subtitleTracks);
 video.addSubtitleTrack = addSubtitleTrack;
 video.toggleSubtitleIsActive = toggleSubtitleIsActive;
 video.setSubtitleBackgroundColour = setSubtitleBackgroundColour;

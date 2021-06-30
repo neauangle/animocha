@@ -360,24 +360,27 @@ a {
     grid-column-end: 12; 
 }
 
-#convert-video-container {
-    grid-row-start: 1;
+#convert-video-progress {
+    grid-row-start: 2;
     grid-row-end: 3; 
     grid-column-start: 12;
     grid-column-end: 13; 
-    display: flex;
-    align-items: flex-start;
-    width: 30px;
-}
-#convert-video-container img {
     width: 100%;
+    text-align: center;
+}
+#convert-video-button {
+    grid-row-start: 1;
+    grid-row-end: 2; 
+    grid-column-start: 12;
+    grid-column-end: 13; 
+    width: 30px;
 }
 
 #dev-tools-button {
     grid-row-start: 2;
     grid-row-end: 3; 
-    grid-column-start: 12;
-    grid-column-end: 13; 
+    grid-column-start: 10;
+    grid-column-end: 11; 
 }
 
 

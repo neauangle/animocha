@@ -30,8 +30,8 @@ async function convertFileToHTMLFriendly(window, videoInfo, subtitleTracks=[]){
         }
     }
 
-
-    let saveAsGuess = videoInfo.filePath;
+    let pathInfo=  path.parse(videoInfo.filePath);
+    let saveAsGuess = pathInfo.name + '(html5)' + pathInfo.ext;
     let toFilepath = dialog.showSaveDialogSync(window, {
         title: "Convert Video",
         defaultPath: saveAsGuess,
