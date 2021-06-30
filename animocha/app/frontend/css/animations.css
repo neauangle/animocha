@@ -1,0 +1,12 @@
+.animate-zoom-in {animation:animatezoomin 0.6s}@keyframes animatezoomin{from{transform:scale(0)} to{transform:scale(1)}}
+.animate-zoom-out {animation:animatezoomout 0.6s}@keyframes animatezoomout{from{transform:scale(1)} to{transform:scale(0)}}
+.animate-opacity-in{animation:opacin 0.8s}@keyframes opacin{from{opacity:0} to{opacity:1}}
+.animate-opacity-out{animation:opacout 0.8s}@keyframes opacout{from{opacity:1} to{opacity:0}}
+.animate-opacity-in-fast{animation:opacinfast 0.4s}@keyframes opacinfast{from{opacity:0} to{opacity:1}}
+.animate-opacity-out-fast{animation:opacoutfast 0.4s}@keyframes opacoutfast{from{opacity:1} to{opacity:0}}
+
+.animate-width-to-100px{animation:widthto100px 0.4s}@keyframes widthto100px{from{width:0} to{width:100px}}
+.animate-width-from-100px{animation:widthfrom100px 0.4s}@keyframes widthfrom100px{from{width:100px} to{width:0}}
+
+.animate-rotating {animation:rotate 2s linear infinite}@keyframes rotate {0% { transform: rotate(0deg); }100% { transform: rotate(360deg); }}
+

@@ -1,0 +1,431 @@
+.neauangle-video-player-cell {
+    --icon-filter: invert(100%) sepia(9%) saturate(7500%) hue-rotate(289deg) brightness(108%) contrast(116%);
+    --video-control-height: 50px;
+
+    --subtitle-background-colour-jpn: transparent;/* darkturquoise; */
+    --subtitle-font-size-jpn: 1.7em;
+    --subtitle-font-family: -apple-system,system-ui,BlinkMacSystemFont,
+    "Segoe UI",Roboto,"Hiragino Sans","Hiragino Kaku Gothic Pro",
+    "Yu Gothic",YuGothic,Meiryo,"Helvetica Neue",sans-serif;
+    /*Tip: https://owumaro.github.io/text-stroke-generator*/
+    --subtitle-text-shadow-jpn: rgb(0, 0, 0) 3px 0px 0px, rgb(0, 0, 0) 2.83487px 0.981584px 0px, rgb(0, 0, 0) 2.35766px 1.85511px 0px, rgb(0, 0, 0) 1.62091px 2.52441px 0px, rgb(0, 0, 0) 0.705713px 2.91581px 0px, rgb(0, 0, 0) -0.287171px 2.98622px 0px, rgb(0, 0, 0) -1.24844px 2.72789px 0px, rgb(0, 0, 0) -2.07227px 2.16926px 0px, rgb(0, 0, 0) -2.66798px 1.37182px 0px, rgb(0, 0, 0) -2.96998px 0.42336px 0px, rgb(0, 0, 0) -2.94502px -0.571704px 0px, rgb(0, 0, 0) -2.59586px -1.50383px 0px, rgb(0, 0, 0) -1.96093px -2.27041px 0px, rgb(0, 0, 0) -1.11013px -2.78704px 0px, rgb(0, 0, 0) -0.137119px -2.99686px 0px, rgb(0, 0, 0) 0.850987px -2.87677px 0px, rgb(0, 0, 0) 1.74541px -2.43999px 0px, rgb(0, 0, 0) 2.44769px -1.73459px 0px, rgb(0, 0, 0) 2.88051px -0.838247px 0px;
+
+
+    --subtitle-background-colour-eng: transparent;
+    --subtitle-font-size-eng: 1.7em;
+    --subtitle-font-family-eng: 'Courier New', Courier, monospace;
+    --subtitle-text-shadow-eng: rgb(0, 0, 0) 3px 0px 0px, rgb(0, 0, 0) 2.83487px 0.981584px 0px, rgb(0, 0, 0) 2.35766px 1.85511px 0px, rgb(0, 0, 0) 1.62091px 2.52441px 0px, rgb(0, 0, 0) 0.705713px 2.91581px 0px, rgb(0, 0, 0) -0.287171px 2.98622px 0px, rgb(0, 0, 0) -1.24844px 2.72789px 0px, rgb(0, 0, 0) -2.07227px 2.16926px 0px, rgb(0, 0, 0) -2.66798px 1.37182px 0px, rgb(0, 0, 0) -2.96998px 0.42336px 0px, rgb(0, 0, 0) -2.94502px -0.571704px 0px, rgb(0, 0, 0) -2.59586px -1.50383px 0px, rgb(0, 0, 0) -1.96093px -2.27041px 0px, rgb(0, 0, 0) -1.11013px -2.78704px 0px, rgb(0, 0, 0) -0.137119px -2.99686px 0px, rgb(0, 0, 0) 0.850987px -2.87677px 0px, rgb(0, 0, 0) 1.74541px -2.43999px 0px, rgb(0, 0, 0) 2.44769px -1.73459px 0px, rgb(0, 0, 0) 2.88051px -0.838247px 0px;
+
+}
+
+
+.neauangle-video-player-cell {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 1fr min-content ;
+    color: white;
+}
+
+
+.neauangle-svg-icon {
+    filter: var(--icon-filter);
+}
+.neauangle-svg-icon:not(.neauangle-disabled):hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+.neauangle-svg-icon:not(.neauangle-disabled):active {
+    opacity: 0.8;
+    transform: scale(0.98);
+}
+.neauangle-svg-icon.neauangle-disabled {
+    opacity: 0.5;
+}
+
+
+
+
+
+
+#neauangle-video-overlay {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:  min-content 1fr min-content;
+    background-color: transparent;
+    z-index: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+#neauangle-video-overlay-icons {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    justify-items: center;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+#neauangle-subtitles-outer-container {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    padding-top: 15px;
+    padding-bottom: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    grid-row-end: 3; 
+
+}
+/* #neauangle-subtitles-outer-container.neauangle-full-height {
+    if you want to tchange it to cover the control bar when that fades out, set row-end to 4 here asnd probably add some padding
+    padding: 10px;
+    padding-bottom: 0;
+    grid-row-end: 3; 
+}
+#neauangle-subtitles-outer-container:not(.neauangle-full-height) {
+    padding-bottom: 0px;
+    grid-row-end: 3;
+}
+ */
+.neauangle-subtitle-container {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    display: flex;
+    
+    flex-direction: column;
+    width: 100%;
+    height: min-content;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+}
+
+#neauangle-top-subtitles-container {
+    align-self: flex-start;
+    margin-top: 20px;
+}
+#neauangle-bottom-subtitles-container {
+    align-self: flex-end;
+}
+
+.neauangle-english-subtitles {
+    background-color: var(--subtitle-background-colour-eng);
+    font-size: var(--subtitle-font-size-eng);
+    font-family: var(--subtitle-family-eng);
+    text-shadow: var(--subtitle-text-shadow-eng);
+}
+.neauangle-japanese-subtitles {
+    background-color: var(--subtitle-background-colour-jpn);
+    font-size: var(--subtitle-font-size-jpn);
+    font-family: var(--subtitle-family-jpn);
+    text-shadow: var(--subtitle-text-shadow-jpn);
+}
+.neauangle-subtitles {    
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    padding: 6px 15px;
+    width: 100%;
+}
+
+
+.neauangle-subtitles:empty { 
+    padding: 0;
+}
+
+.neauangle-video-overlay-icon {
+    width: 100px;
+    height: 100px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+
+
+
+#neauangle-video-player-container {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    background-color: black;
+}
+
+.neauangle-video-player {
+    background-color: black;
+    min-height: 0;
+    min-width: 0;
+}
+
+
+
+#neauangle-video-control-bar {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.082), rgb(0, 0, 0)); 
+    display: flex;
+    opacity: 0.2;
+    flex-direction: row;
+    align-items: center; 
+    height: 47px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    padding: 7px;
+    padding-top: 14px;
+}
+
+#neauangle-video-top-bar {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.082), rgb(0, 0, 0)); 
+    display: flex;
+    opacity: 1;
+    height: var(--video-control-height);
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    padding: 7px;
+    padding-top: 14px;
+}
+
+
+
+.neauangle-video-control-bar-button {
+    height: 100%;
+}
+
+
+#neauangle-video-progress-time {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    margin-right: 5px;
+    cursor: context-menu;
+}
+
+
+
+
+.neauangle-progress-bar {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows:  1fr 10px 1fr;
+    flex-grow: 1;
+}
+
+
+
+.neauangle-progress-bar-background {   
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3; 
+    width: 100%;
+    border-radius: 4px;
+    background-color: thistle;
+    display: flex;
+    align-items: center; 
+    padding: 0 2px;
+    
+}
+.neauangle-progress-bar-background:not(.neauangle-disabled){
+    cursor: pointer;
+}
+
+.neauangle-progress-bar-foreground {
+    border-radius: 4px;
+    width: 0%; /*set this as percent dynamically*/
+    height: 5px;
+    background-color:rgb(173, 154, 173);;
+}
+
+#neauangle-current-time-marker {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3; 
+    width: 5px;
+    height: 5px;
+    border-radius: 4px;
+    position: relative;
+    background-color: darkslategrey;
+    height: 100%;
+    pointer-events: none;
+}
+
+
+#neauangle-seek-preview-time {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3; 
+    position: relative;
+    white-space: nowrap;
+    left: 0;
+    top: -25px; 
+    opacity: 0; 
+}
+
+#neauangle-video-progress-time {
+    text-align: center;
+    width: 120px;
+    color: white;
+}
+
+
+#neauangle-volume-container {
+    display: flex;
+    height: 90%;
+    margin: 0 5px;
+    width: 100px;
+    column-gap: 2px;
+    align-items: center;
+}
+
+#neauangle-volume-button {
+    display: flex;
+    height: 90%;
+    margin: 0 5px;
+}
+
+
+#neauangle-control-bar-open-file-button {
+    display: flex;
+    height: 90%;
+    margin: 0 5px;
+    width: min-content;
+}
+
+
+
+
+
+
+
+
+
+#neauangle-subs-selection {
+    grid-row-start: 1;
+    grid-row-end: 3; 
+    grid-column-start: 1;
+    grid-column-end: 2; 
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: min-content auto min-content min-content auto auto min-content ;
+    
+    padding: 20px;
+    row-gap: 10px;
+
+    z-index: 3;
+    background-color: transparent;
+}
+
+#neauangle-subs-selection-title {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align: center;
+    font-size: 20px;
+}
+
+
+
+#neauangle-subs-selection-continue-button {
+    grid-row-start: 7;
+    grid-row-end: 8;
+    grid-column-start: 1;
+    grid-column-end: 3; 
+    width: 50%;
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    border-radius: 4px;;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.neauangle-subs-selection-title {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    text-align: center;
+    font-family: var(--subtitle-font-family-eng);
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0.75;
+}
+
+.neauangle-subs-selection-radios {
+    grid-row-start: 5;
+    grid-row-end: 6;
+    padding: 0 20px;
+    font-family: var(--subtitle-font-family-eng);
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    column-gap: 10px;
+    row-gap: 10px;
+    align-content: flex-start;
+    
+}
+.neauangle-subs-selection-radios > div {
+    display: flex;
+    column-gap: 10px;
+    /*align-items: center;*/
+}
+.neauangle-subs-selection-radios input {
+    min-width: 30px;
+    min-height: 30px;
+    height: 100%;
+    display: flex;
+}
+.neauangle-subs-selection-radios label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-start;
+    padding-top: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.neauangle-animate-rotating {animation:rotate 2s linear infinite}@keyframes rotate {0% { transform: rotate(0deg); }100% { transform: rotate(360deg); }}
+.neauangle-animate-opacity-in-fast{animation:opacinfast 0.4s}@keyframes opacinfast{from{opacity:0} to{opacity:1}}
+.neauangle-animate-opacity-out-fast{animation:opacoutfast 0.4s}@keyframes opacoutfast{from{opacity:1} to{opacity:0}}
+.neauangle-animate-opacity-in-super-fast{animation:opacinfast 0.2s}@keyframes opacinfast{from{opacity:0} to{opacity:1}}
+.neauangle-animate-opacity-out-super-fast{animation:opacoutfast 0.2s}@keyframes opacoutfast{from{opacity:1} to{opacity:0}}

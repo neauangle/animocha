@@ -1,0 +1,193 @@
+:root {
+    /* colours get darker from a -> ...*/
+    --text-colour-a: #ffffff;
+    --text-colour-b: #aaaaaa;
+    --border-colour-a: #777777;
+    --border-colour-b: #333333;
+    --background-colour-a: #d3d3d3;
+    --background-colour-a5: #b1b1b1;
+    --background-colour-a6: #8f8f8f;
+    --background-colour-b: #6b6b6b;
+    --background-colour-c: #555555;
+    --background-colour-d: #333333;
+    --background-colour-e: black;
+    
+    --faint-highlight-colour-a: #cccccccc;
+    --faint-highlight-colour-b: #88888888;
+    --warning-colour: red;
+    --shadow-colour-a: #aaaaaa;
+    --font-size-h1: 2em;
+    --font-size-h2: 1.75em;
+    --font-size-h3: 1.5em;
+    --font-size-h4: 1.25em;
+    --font-size-h5: 1em;
+    --font-size-h6: 0.9em;
+
+    --white-icon-filter: invert(100%) sepia(9%) saturate(7500%) hue-rotate(289deg) brightness(108%) contrast(116%);
+
+    --font-family-a: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --font-family-jpn: -apple-system,system-ui,BlinkMacSystemFont,
+    "Segoe UI",Roboto,"Hiragino Sans","Hiragino Kaku Gothic Pro",
+    "Yu Gothic",YuGothic,Meiryo,"Helvetica Neue",sans-serif;
+
+
+}
+
+.lang-ja,html:lang(ja){
+    font-family: var(--font-family-jpn);
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+html {
+    box-sizing: border-box;
+    line-height: 1.15;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-size: var(--font-size-h5);
+    color: var(--text-colour-a);
+    margin: 0;
+    height: 100vh;
+}
+    
+
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 600;
+    margin: 0.35em 0 0.7em 0;
+  }
+  
+h1 {font-size: var(--font-size-h1);}
+h2 {font-size: var(--font-size-h2);}
+h3 {font-size: var(--font-size-h3);}
+h4 {font-size: var(--font-size-h4);}
+h5 {font-size: var(--font-size-h5);}
+h6 {font-size: var(--font-size-h6);}   
+
+img {max-width: 100%;}
+
+
+hr {
+    padding: 0;
+    width: 100%;
+}
+
+
+.white-icon {
+    filter: var(--white-icon-filter);
+}
+
+
+.svg-icon:not(.disabled):hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+.svg-icon:not(.disabled):active {
+    opacity: 0.8;
+    transform: scale(0.98);
+}
+.svg-icon.disabled {
+    opacity: 0.5;
+}
+
+.strike-through {
+    text-decoration: line-through;
+}
+
+
+input:invalid.error-checking {
+    box-shadow: 0 0 3px 1px var(--warning-colour);
+    border-color: var(--warning-colour);
+}
+  
+input:focus:invalid.error-checking {
+    box-shadow: none;
+}
+
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="color"]):not([type="button"]):not([type="reset"]),
+select,
+textarea,
+textarea[type="text"] {
+  font-family: inherit;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border-colour-b);
+  font-size: var(--font-size-h5);
+  display: block;
+  width: 100%;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="color"]):not([type="button"]):not([type="reset"]):not(:disabled):hover,
+select:not(:disabled):hover,
+textarea:not(:disabled):hover,
+textarea[type="text"]:not(:disabled):hover {
+  border-color: var(--border-colour-b);
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="color"]):not([type="button"]):not([type="reset"]):focus,
+select:focus,
+textarea:focus,
+textarea[type="text"]:focus {
+  outline: none;
+  border-color: var(--border-colour-b);
+  box-shadow: 0 0 1px var(--shadow-colour-a);
+}
+
+
+[type="checkbox"],
+[type="radio"] {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+
+button {
+  padding: 1rem 2.5rem;
+  background: var(--background-colour-a);
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-size: var(--font-size-h4);
+  line-height: 1;
+  text-align: center;
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+  transform: scale(1);
+  display: inline-block;
+  
+}
+button:not(:disabled) {
+    cursor: pointer;
+}
+
+button:not(:disabled):hover {
+    opacity: 0.8;
+}
+
+button:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+    opacity: 0.4;
+}
+input:disabled {
+    opacity: 0.8;
+}
+
+
+.is-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.invisible-to-mouse {
+    pointer-events: none;
+}

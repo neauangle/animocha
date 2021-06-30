@@ -1,0 +1,38 @@
+JSMpeg calls JSMpeg.CreateVideoElements when the DOM is loaded, which creates video-element.js for each canvas element. 
+VideoElement creates a JSMpeg.Player and passes url and options. player.js checks the url and options and links up
+the source (for us, that's a BridgeSource), demuxer (JSMpeg.Demuxer.TS), 
+decoder (JSMpeg.Decoder.MPEG1Video or WASM equivalent), JSMpeg.Renderer.WebGL or canvas equivalent,
+JSMpeg.AudioOutput.WebAudio, etc.
+
+The bytes from the source are passed to the demuxer. The demuxer ignores the Presentation Control Reference, 
+which is supposed to the global time reference for all streams and is set from the system clock of the decoder.
+It does, however, store the starttime and endtime based on Presentation Time Stamp, which is the time that they're supposed to 
+be shown. This gives us a way to calculate the relative time the stream has been streaming, 
+and from that + the original seek gives us a sync time for subtitles. The demuxer passes the pts and the bytes to a Decoder.
+
+Audio and Video decoders extend BaseDecoder which has a starttime and decodedtime (currenttime is an alias for decodeddtime).
+On write, if collectTimestamps (true if !options.streaming was passed in as options to the video player's setup):
+	The Decoder sets its starttime to the first pts it receives through a write call
+	decodedtime is just the pts of the most recent write. 
+	The write call also pushes a timestamp with the pts as attribute 'time'
+else
+	The starttime is just 0, from initialisation
+On advanceDecodedTime (called by the audio and video derived classes (js or wasm) on decode) if collectTimestamps:
+	if there's a newer timestamp than the last time decoded, set decodedtime to that
+else
+	set it to the seconds argument, which is just 1/this.frameRate
+
+The Player has a getCurrentTime which uses one of the decoder's starttime and currenttime (alias decodetime).
+
+In conclusion, getCurrentTime seems like an accurate way to get current offset, but lets erase the calls to Now()for 
+the sake of possible onDecode callbacks - we dont need it. We can use ondecode but pass current time, or poll
+every 100ms or so.
+
+We can also use their seek and if the time is not in buffer (either too low or high)- which is checked in
+the base Decoder but they just go to the oldest frame they know- we can just restart the stream. The good thing is
+since this is in the BaseDecoder we dont need to chnage much. We will need to flush everything though- all the buffers
+etc. Maybe just init a new Player.
+
+
+
+for srt: https://github.com/bazh/subtitles-parser

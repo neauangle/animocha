@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+<!--     <meta http-equiv="Content-Security-Policy" content="script-src 'wasm-eval' 'unsafe-eval' 'self' 'unsafe-inline'; media-src  * data: 'unsafe-eval' 'unsafe-inline' blob:; default-src * data: 'unsafe-eval' 'unsafe-inline' blob:; worker-src blob:" />
+ -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'wasm-eval' 'self' 'unsafe-inline'; worker-src * data: 'unsafe-inline' blob:;" />
+    <link rel="stylesheet" type="text/css" href="./css/base.css">
+    <link rel="stylesheet" type="text/css" href="./css/animations.css">
+    <link rel="stylesheet" type="text/css" href="./css/video.css">
+    <link rel="stylesheet" type="text/css" href="./css/search-result.css">
+    <link rel="stylesheet" type="text/css" href="./css/app.css">
+
+
+    <title>Animisu</title>
+</head>
+
+<body>
+    <div id="tooltip-shell">
+        <div id='tooltip'></div>
+    </div>
+
+    <div id="main-grid-container">
+        <div id="video-player-cell"></div>
+
+        <div id="bottom-panel-cell">
+            <label id="subs-jpn-label">Japanese Subs: </label>
+            <div id="subs-jpn-icons">
+                <img id='subs-jpn-open-button' class='svg-icon white-icon' src='img/icons/material-design/folder-open.svg'
+                    onclick="!this.disabled && document.getElementById('subs-jpn-open-input').click();"
+                    style="display: none">
+                </img>
+                <input id="subs-jpn-open-input" type="file" name="name" style="display: none;" />
+                <img id='subs-jpn-visiblity-toggle' class='svg-icon white-icon' src='img/icons/material-design/eye.svg'></img>
+            </div>
+            <input id="subs-jpn-offset-input" type="text" placeholder="offset (s)"/>
+            <input id="subs-jpn-font-size-input" type="text" placeholder="font size"/>
+    
+            <label id="subs-eng-label">English Subs: </label>
+            <div id="subs-eng-icons">
+                <img id='subs-eng-open-button' class='svg-icon white-icon' src='img/icons/material-design/folder-open.svg'
+                    onclick="!this.disabled && document.getElementById('subs-eng-open-input').click();"
+                    style="display: none">
+                </img>
+                <input id="subs-eng-open-input" type="file" name="name" style="display: none;" />
+                <img id='subs-eng-visiblity-toggle' class='svg-icon white-icon' src='img/icons/material-design/eye.svg'></img>
+            </div>
+            <input id="subs-eng-offset-input" type="text" placeholder="offset (s)"/>
+            <input id="subs-eng-font-size-input" type="text" placeholder="font size"/>
+    
+            <input id="subs-background-alpha-input"  type="range" min="1" max="100" value="0">
+            <button id="clear-file-cache-button">Clear Cache</button>
+    
+            <div id="vertical-separator-1" class="vertical-separator"></div>
+
+            <div id="vertical-separator-2" class="vertical-separator"></div>
+
+            <div id="scrolling-subs-font-size">
+                <label>Right Panel:</label>
+                <input id="scrolling-subs-font-size-input" type="text" placeholder="font size" disabled value="${userData['scrollingSubtitleFontSize']}"/>
+            </div>
+
+            <button id="dev-tools-button">D</button>
+    
+            <div id="vertical-separator-3" class="vertical-separator"></div>
+    
+            <div id="convert-video-container">
+                <img id='convert-video-button' 
+                    class='svg-icon white-icon disabled' 
+                    src='img/icons/material-design/drift-file-move.svg'>
+                </img>
+                <div id='convert-video-progress'></div>
+            </div>    
+        </div> 
+
+
+        <div id="right-panel-cell">
+            <div id="card-details-panel"></div> 
+            <div id="subtitles-panel">
+                <div id="subtitle-rows-container"></div>
+            </div>
+        </div>
+
+    <script src="js/hls.js"></script>
+    <script src="js/video.js"></script>
+    <script src="js/app.js" type="module"></script>
+   
+
+</body>
