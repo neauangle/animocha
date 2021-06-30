@@ -1,5 +1,6 @@
 ffmpeg.exe
 ffprobe.exe
+dist/
 
 # Logs
 logs

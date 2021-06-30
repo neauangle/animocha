@@ -3,12 +3,51 @@
     --scrolling-subtitles-font-size: 1.15em;
     --title-bar-hidden-height: 10px;
 }
-.tile {
+
+
+/*****************************
+            MODALS
+*****************************/
+#about-modal {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    max-width: 60%;
+    height: 75%;
+    z-index: 6;
+    left: 20%;
+    right: 20%;
+    top: 12%;
     padding: 15px;
+    visibility: hidden;
+    font-size: var(--font-size-h4);
     border-radius: 4px;
-    background: var(--tile-bg-color-a);
+    background: var(--background-colour-c);
     box-shadow: 0 1px 3px var(--shadow-a);
+    overflow-y: auto;
 }
+#about-modal div {
+    margin-top: 5px;;
+    row-gap: 5px;
+}
+
+
+#about-title {
+    font-size: var(--font-size-h2);
+    text-align: center;
+}
+
+.about-indented {
+    margin-left: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: #d7a4d3;
+}
+
+/******************************************/
 
 #tooltip {
     width: 100%;
@@ -273,6 +312,13 @@
     grid-row-end: 3; 
     grid-column-start: 6;
     grid-column-end: 7; 
+}
+
+#about-button {
+    grid-row-start: 2;
+    grid-row-end: 3; 
+    grid-column-start: 7;
+    grid-column-end: 8; 
 }
 
 #full-screen {

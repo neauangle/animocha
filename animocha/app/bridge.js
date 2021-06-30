@@ -12,9 +12,8 @@ let subtitlesReadycallback;
 const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('bridge', {
     enableDevTools: () => ipcRenderer.invoke("enable-dev-tools"),
+    openURL: (url) => ipcRenderer.invoke('open-url', url),
     setFullScreen: (val) => ipcRenderer.invoke("set-full-screen", val),
-    //invoke send a message to the main process via a channel and expects a result asynchronously.
-    //this is called as window.bridge.toggleDarkMode() in a client-side javascript file
     getUserData: () => ipcRenderer.invoke('get-user-data'),
     updateUserData: (userData) => ipcRenderer.invoke('update-user-data', userData),
     getVideoInfo: (simplified) => ipcRenderer.invoke('get-video-info', simplified),

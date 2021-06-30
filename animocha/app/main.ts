@@ -8,52 +8,21 @@ Initial setup was:
     to run: npm start
 
 TODO: 
---estimated completion: 1.5 - 2 months
-    * use !this.disabled && ... for control bar open file
-    * dark theme toolbar
-    * fullscreen
-    * add "about" tab
-        * abs position, slides down on mouse
-    * icon
-    * two branches - one for working on grammar backend 
-        * just make it its own project 
-    * build script to add in kanji, vocab and grammar
-        * figure out how backups work
-        * figure out best way to manually link grammar cards to ancestors
-            * incorporate this info into the build script for the database OR just, yeah, figure out how to backup     
+--estimated completion: 0.5 - 1 months
+    * icon (dave?)
+    * convert button not enabling
+    * subtitle entry play buttons seek, but if its paused it will stay paused- fix that and make it play
+    * add search text input for dictionary
+    * add search for subtitle entries?
+    * release gihub page, with pictures and feature list.
     * fix up the aesthetics of the subtitle selection screen
         * make the labels for the radios too so clicking them selects the radios
     * when video is not transcoded (e.g. video game doc), its height can exceed the bounds rather than showing vertical black bars
         * I think I'm okay with this.
         * possible solution: copy instead of transcoding those ones
             * this would make a standard streaming interface too
-            * see if it actually solves the problem  
-    * npm build script that comments out electron-reloader, copies over crypto-helper.js and edits the require path accordingly 
-    * after file open, get user to 
-        * select / create an episode pool
-            * not mandatory- it will then just be a normal video player capable of two subs
-            * maybe show that stuff on top right
-    * hover on subs to show card details in top right
-        * stack: go to ancestors and come back
-    * search drawer
-        * query language, advanced searches   
-    * edit card moves card details from top right to bottom right, covering the subtitles
-        * stack: create new cards / move card to edit, cancel or publish to pop them off 
-        * encourage people to search for similar existing cards
-        * review card fields etc.
-    *  publish preview
-        * add additional comments
-        * diff format
-    * add initial grammars, dictionary, kanji
-        * have kanji linking automatic or just done at runtime for title parts without matches
-    * new page / tab for edit queue (websockets, realtime)
-        * users discuss and vote on edits in the order they were made
-            * maybe support multiple websocket channels though, in case things speed up
-        * rejected goes back to user with notes on why / what to fix
-        * figure out points and voting system, card stiffness, etc
-    * ability to download a database image / cache and use offline
-        * have a "refesh" button in ui
-    * create a subreddit?
+            * see if it actually solves the problem
+    * npm build script that comments out electron-reloader
     * reach out for testers
 */
 
@@ -65,7 +34,7 @@ const path = require("path");
 const videoServer = require('./video-server');
 
 //automatically refresh electron windows when files change (are saved)
-require('electron-reload')(__dirname);
+//require('electron-reload')(__dirname);
 
 Menu.setApplicationMenu(null);
 
@@ -122,12 +91,11 @@ async function createWindow() {
     });
   
     win.loadFile(path.join(__dirname, "frontend/app.html"));
-    win.webContents.openDevTools();
+    //win.webContents.openDevTools();
+    
 
     win.maximize();
     win.show();
-    
-    
 
     //Adds a handler for an invokeable IPC. This handler will be called whenever a renderer calls 
     //ipcRenderer.invoke(channel, ...args).
@@ -142,6 +110,7 @@ async function createWindow() {
          fs.writeFileSync(USER_DATA_FILE_PATH, JSON.stringify(args));
     });
     ipcMain.handle('enable-dev-tools', (event, args) => {win.webContents.openDevTools();});
+    ipcMain.handle('open-url', (event, url) => {shell.openExternal(url);});
     ipcMain.handle('set-full-screen', (event, val) => {win.setFullScreen(val)});
     ipcMain.handle('start-loading-stream', (event, options) => {return videoServer.startLoadingStream(options)});
     ipcMain.handle('get-video-info', (event, simplified) => {return videoServer.getVideoInfo(simplified)});
@@ -206,7 +175,6 @@ app.on('web-contents-created', (event, contents) => {
 function isSafeForExternalOpen(info: Electron.HandlerDetails) {
     return false;
 }
-
 
 
 

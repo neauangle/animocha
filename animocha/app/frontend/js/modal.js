@@ -60,13 +60,13 @@ export function createModalController(modalBackground, ...modalInfos){
 
     if (modalBackground){
         var sheet = window.document.styleSheets[window.document.styleSheets.length - 1];
-        sheet.insertRule(`#modal-background {
+        sheet.insertRule(`#${modalBackground.id} {
             visibility: hidden;
             position: absolute;
             background-color: rgba(0, 0, 0, 0.7);
             width: 100%;
             height: 100%;
-            z-index: 5;
+            z-index: 6;
         }`, sheet.cssRules.length);
     }
 

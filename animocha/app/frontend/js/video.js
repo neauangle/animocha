@@ -245,7 +245,8 @@ videoPlayerCell.innerHTML = `
             </div>
 
             <img id='neauangle-control-bar-open-file-button' class='neauangle-svg-icon neauangle-video-overlay-icon neauangle-disabled' 
-                src='img/video/icons/material-design/folder-open.svg'>
+                src='img/video/icons/material-design/folder-open.svg'
+                onclick="!this.classList.contains('neauangle-disabled') && document.getElementById('neauangle-control-bar-file-input').click();">
             </img>
             <input id="neauangle-control-bar-file-input" type="file" name="name" style="display: none;" />
         </div>
@@ -507,13 +508,6 @@ document.addEventListener('mousemove', (ev) => {
         setVolume(NeauangleVideo.UTIL.clamp(proportion, 0, 1));
     }
 });
-
-controlBarOpenFileButton.addEventListener('click', e => {
-    if (!controlBarOpenFileButton.classList.contains('neauangle-disabled')){
-        controlBarFileInput.click();
-    }
-})
-
 
 
 

@@ -1,5 +1,6 @@
 import * as Templates from './templates.js';
 import * as Search from './search.js';
+import { createModalController } from './modal.js';
 
 const mainContainer = document.getElementById('main-container');
 const leftCell = document.getElementById('left-cell');
@@ -23,6 +24,13 @@ const convertButton = document.getElementById("convert-video-button");
 const convertProgress = document.getElementById("convert-video-progress");
 const backgroundAlphaInput = document.getElementById('subs-background-alpha-input');
 const clearSettingsButton = document.getElementById('clear-file-cache-button');
+const aboutButton = document.getElementById("about-button");
+const aboutModal = document.getElementById("about-modal");
+const modalController = createModalController(
+    document.getElementById("modal-background"),
+    {button: aboutButton, modal: aboutModal},
+);
+
 const userData = await window.bridge.getUserData();
 
 let mostRecentJapaneseSubtitleEntry;
@@ -46,6 +54,11 @@ leftCell.style.width = leftP+'%';
 rightCell.style.width = (100-leftP) + '%';
 let leftRightSeparatorNewX = 0;
 
+
+for (const a of document.getElementsByTagName('a')){
+    a.addEventListener('click', e=> window.bridge.openURL(a.getAttribute('href')));
+    setTooltip(a, a.getAttribute('href'));
+}
 
 document.addEventListener('mousemove', (ev) => {   
     let delta = {y: ev.y - mousePos.y, x: ev.x - mousePos.x}
@@ -85,7 +98,7 @@ document.addEventListener('mouseup', () => {
     }
     let element = document.getSelection().anchorNode;
     while (element !== document.body){
-        if (!element || element === dictionaryPanel || (video && element === bottomPanel)){
+        if (!element || element === dictionaryPanel || element === aboutModal || (video && element === bottomPanel)){
             return;
         }
         element = element.parentElement;

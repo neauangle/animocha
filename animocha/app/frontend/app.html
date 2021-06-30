@@ -13,12 +13,44 @@
     <link rel="stylesheet" type="text/css" href="./css/app.css">
 
 
-    <title>Animisu</title>
+    <title>Animocha</title>
 </head>
 
 <body>
     <div id="tooltip-shell">
         <div id='tooltip'></div>
+    </div>
+
+    <div id="modal-background"></div>
+    <div id="about-modal" class="modal tile">
+        <div id="about-title">Animocha</div>
+        <div>Version: 0.0.1</div> 
+        <div>Developed by: <a href="https://github.com/mudbile">Neauangle</a></div>
+        <div>Inspired by <a href="https://animelon.com/">Animelon</a></div> 
+        <div>With thanks to:</div> 
+        <div class="about-indented">
+            <div><a href="http://ffmpeg.org">FFmpeg</a> developers: lets us watch non-HTML5-compatible 
+                videos by transcoding them on the fly. Used under the GPL license.  
+                Source: <a href="https://github.com/FFmpeg/FFmpeg/commit/49e3a8165c">2021-06-27-git-49e3a8165c</a>. 
+                Downloaded from <a href="https://www.gyan.dev/ffmpeg/builds/">Gyan</a>.
+            </div> 
+            <div><a href="https://github.com/birchill">Birchill, Inc</a>: I took a piece of his beautiful code from 
+                Rikaichamp that lets us search conjugations.
+            </div> 
+            <div><a href="https://old.reddit.com/r/LearnJapanese/">r/LearnJapanese</a>: I basically owe 
+                all my Japanese that didn't come stright from a book to the amazing people who volunteer 
+                their time tirelessly for noobs like me in the ShitsuMonday threads: hadaa, lyrencropt, 
+                nanbanjin_01, yamyukky, honkoku, dabedu, tamag0chi, ketchup901, teraflop, seestas, 
+                morgawr_ . . . the list is long!
+            </div> 
+        </div>
+        <div>Feedback, feature requests and donations all greedily accepted! I don&#39;t
+            collect any data so please let me know what you think :)
+        </div>
+        <div class="about-indented">
+            <div>Email: eulerspill@protonmail.com</div>
+            <div>ERC20 and BEP20 coins: 0x7ea7508435DDcf0FF43939c1aC30Ca634E8aC146</div>
+        </div>
     </div>
 
     <div id="main-container">
@@ -53,7 +85,9 @@
                 <button id="clear-file-cache-button">Clear Cache</button>
         
                 <div id="vertical-separator-1" class="vertical-separator"></div>
-    
+                
+                <button id="about-button">About</button>
+
                 <div id="full-screen">
                     <label>Full Screen:</label>
                     <input id="full-screen-input" type="checkbox"/>
@@ -63,7 +97,7 @@
     
                 <div id="scrolling-subs-font-size">
                     <label>Right Panel:</label>
-                    <input id="scrolling-subs-font-size-input" type="text" placeholder="font size" disabled value="${userData['scrollingSubtitleFontSize']}"/>
+                    <input id="scrolling-subs-font-size-input" type="text" placeholder="font size" disabled/>
                 </div>
     
                 <button id="dev-tools-button">D</button>
@@ -73,7 +107,7 @@
                 <div id="convert-video-container">
                     <img id='convert-video-button' 
                         class='svg-icon white-icon disabled' 
-                        src='img/icons/material-design/drift-file-move.svg'>
+                        src='img/icons/material-design/get-app.svg'>
                     </img>
                     <div id='convert-video-progress'></div>
                 </div>    
