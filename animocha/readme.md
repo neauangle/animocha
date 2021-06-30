@@ -16,9 +16,10 @@ A minimalistic video player inspired by [Animelon](http://animelon.com/). Theore
 
 ### With Thanks To
 - [FFmpeg](http://ffmpeg.org) developers
+- [hls.js](https://github.com/video-dev/hls.js/): catches the stream output from FFmpeg.
+- [Jim Breen](http://nihongo.monash.edu/japanese.html) (and current custodians [EDRG]("https://www.edrdg.org/"): For the JMDICT dictionaries!
 - [Birchill, Inc](https://github.com/birchill): it is thanks to some beautiful code that I took from Rikaichamp that lets us search conjugations.
 - [r/LearnJapanese](https://old.reddit.com/r/LearnJapanese/): I basically owe all my Japanese that didn't come stright from a book to the amazing people who volunteer  their time tirelessly for noobs like me in the ShitsuMonday threads: hadaa, lyrencropt, nanbanjin\_01, yamyukky, honkoku, dabedu, tamag0chi, ketchup901, teraflop, seestas, morgawr\_ . . . _the list is long!_
--[hls.js](https://github.com/video-dev/hls.js/): catches the stream output from FFmpeg.
 
 ### Scavenging Code?
 
