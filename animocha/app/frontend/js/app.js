@@ -1,15 +1,24 @@
 import * as Templates from './templates.js';
 import * as Search from './search.js';
 
+const mainContainer = document.getElementById('main-container');
+const leftCell = document.getElementById('left-cell');
+const rightCell = document.getElementById('right-cell');
+const leftRightSeparator = document.getElementById("left-right-separator");
+const dictionaryPanel =  document.getElementById('dictionary-panel');
+const subtitlesPanel =  document.getElementById('subtitles-panel');
 const subtitleRowsContainer = document.getElementById('subtitle-rows-container');
-const cardDetailsPanel =  document.getElementById('card-details-panel');
 const tooltipShell = document.getElementById("tooltip-shell");
 const tooltip = document.getElementById("tooltip");
+const dictionarySubtitlesSeparator = document.getElementById("dictionary-subtitles-separator");
+const videoPlayerPanel = document.getElementById('video-player-panel');
 
+
+const bottomPanel = document.getElementById('bottom-panel');
 const bottomPanelSubtitleControls = {'eng': {}, 'jpn': {}}
-const bottomPanelCell = document.getElementById('bottom-panel-cell');
 const eyeOpenSVGPath = `img/icons/material-design/eye.svg`;
 const eyeClosedSVGPath = `img/icons/material-design/eye-off.svg`;
+const fullScreenInput = document.getElementById("full-screen-input");
 const convertButton = document.getElementById("convert-video-button");
 const convertProgress = document.getElementById("convert-video-progress");
 const backgroundAlphaInput = document.getElementById('subs-background-alpha-input');
@@ -18,26 +27,65 @@ const userData = await window.bridge.getUserData();
 
 let mostRecentJapaneseSubtitleEntry;
 let currentVideoFileName;
-let videoCell = document.getElementById('video-player-cell');
 let videoContainer;
 let video
 let mouseIsOverSubtitlesScroller;
 let tooltipOn = false;
+let repositioningDictionarySubtitlesSeparator = false;
+let repositioningLeftRightSeparator = false;
 let mousePos = {x: 0, y: 0};
 
+let dictP = Number(userData["dictionaryPanelProportion"].slice(0,-1));
+dictionaryPanel.style.height = dictP+'%';
+subtitlesPanel.style.height = (100-dictP) + '%';
+let dictionarySubtitlesSeparatorNewY = 0;
 
- 
-document.addEventListener('mousemove', (ev) => {
+let leftP = Number(userData["leftCellProportion"].slice(0,-1));
+console.log(leftP);
+leftCell.style.width = leftP+'%';
+rightCell.style.width = (100-leftP) + '%';
+let leftRightSeparatorNewX = 0;
+
+
+document.addEventListener('mousemove', (ev) => {   
+    let delta = {y: ev.y - mousePos.y, x: ev.x - mousePos.x}
     mousePos = ev;
     if (tooltipShell.style.opacity && tooltipShell.style.opacity != '0'){
         tooltipShell.style.left = ev.x + "px";
         tooltipShell.style.top = (ev.y - tooltipShell.getBoundingClientRect().height) + "px";
     }
+
+    if (repositioningDictionarySubtitlesSeparator){
+        dictionarySubtitlesSeparatorNewY += delta.y;
+        let yp =  100*(dictionarySubtitlesSeparatorNewY / rightCell.getBoundingClientRect().height);
+        dictionaryPanel.style.height = yp + '%';
+        subtitlesPanel.style.height = (100-yp) + '%';
+    }
+
+    if (repositioningLeftRightSeparator){
+        leftRightSeparatorNewX += delta.x;
+        let xp =  100*(leftRightSeparatorNewX / mainContainer.getBoundingClientRect().width);
+        leftCell.style.width = xp + '%';
+        rightCell.style.width = (100-xp) + '%';
+    }
+
 });
 document.addEventListener('mouseup', () => {
+    if (repositioningDictionarySubtitlesSeparator){
+        repositioningDictionarySubtitlesSeparator = false;
+        dictionarySubtitlesSeparator.classList.remove('selected');
+        userData["dictionaryPanelProportion"] =  dictionaryPanel.style.height;
+        saveOutUserData();
+    }
+    if (repositioningLeftRightSeparator){
+        repositioningLeftRightSeparator = false;
+        leftRightSeparator.classList.remove('selected');
+        userData["leftCellProportion"] =  leftCell.style.width;
+        saveOutUserData();
+    }
     let element = document.getSelection().anchorNode;
     while (element !== document.body){
-        if (!element || element === cardDetailsPanel || (video && element === bottomPanelCell)){
+        if (!element || element === dictionaryPanel || (video && element === bottomPanel)){
             return;
         }
         element = element.parentElement;
@@ -45,7 +93,7 @@ document.addEventListener('mouseup', () => {
     const selection = document.getSelection().toString();
     document.getSelection().empty();
     if (selection){
-       cardDetailsPanel.innerHTML = Search.getHTMLStringFromSearchResult(Search.searchWord(selection));
+        dictionaryPanel.innerHTML = Search.getHTMLStringFromSearchResult(Search.searchWord(selection));
        for (element of document.getElementsByClassName('search-result-vocab-entry-sense-header')){
             if (element.hasAttribute('title')){
                 const tooltip = element.getAttribute('title').split('\n').join('<br/>');
@@ -55,10 +103,31 @@ document.addEventListener('mouseup', () => {
             }
         }
     }
+
+    
 })
 
 
 document.getElementById('dev-tools-button').addEventListener("click", event => { window.bridge.enableDevTools();});
+
+dictionarySubtitlesSeparator.addEventListener('mousedown', e => {
+    repositioningDictionarySubtitlesSeparator = true;
+    dictionarySubtitlesSeparatorNewY = dictionarySubtitlesSeparator.offsetTop + 0.5 * dictionarySubtitlesSeparator.getBoundingClientRect().height;
+    dictionarySubtitlesSeparator.classList.add('selected');
+})
+
+leftRightSeparator.addEventListener('mousedown', e => {
+    repositioningLeftRightSeparator = true;
+    leftRightSeparatorNewX = leftRightSeparator.offsetLeft + 0.5 * leftRightSeparator.getBoundingClientRect().width;
+    leftRightSeparator.classList.add('selected');
+})
+
+
+
+
+
+
+
 
 
 
@@ -88,7 +157,7 @@ function createNew(initFilePath){
     }
     videoContainer = document.createElement('div');
     videoContainer.style.height = '100%';
-    videoCell.appendChild(videoContainer);
+    videoPlayerPanel.appendChild(videoContainer);
     video = NeauangleVideo.create(videoContainer, initFilePath);
     resetBottomPanel();
 
@@ -306,7 +375,11 @@ function resetBottomPanel(){
     }
 }
 
+setTooltip(fullScreenInput, "You can also toggle with F11", {bottomPadding: '15px'});
 
+fullScreenInput.addEventListener('change', e => {
+    window.bridge.setFullScreen(fullScreenInput.checked);
+})
 
 setTooltip(convertButton, "Convert to a natively compatible format<br>(and mux current subtitles)", {bottomPadding: '15px'});
 
@@ -422,6 +495,24 @@ convertButton.addEventListener("click", async ev => {
 function handleConversionProgress(currentSeconds, durationSeconds){
     convertProgress.innerText = `${Math.round((100*currentSeconds) / durationSeconds)}%`;
 }
+
+
+
+
+
+
+
+document.addEventListener('keydown', (e) => {
+    if (e.code=== "Escape"){
+        fullScreenInput.checked = false;
+        window.bridge.setFullScreen(fullScreenInput.checked);
+    }
+    if (e.code=== "F11"){
+        fullScreenInput.checked = !fullScreenInput.checked;
+        window.bridge.setFullScreen(fullScreenInput.checked);
+    }
+});
+
 
 
 

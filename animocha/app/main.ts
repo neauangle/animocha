@@ -75,6 +75,8 @@ const userData : any = {
     "engFontSize": "1.2em",
     "subtitleBackgroundAlpha": 0.5,
     "scrollingSubtitleFontSize": "1.15em",
+    "leftCellProportion": "73%",
+    "dictionaryPanelProportion": "40%",
     "files": {
         //name -> {subtitles: {"eng": {"filePath": "", "offsetSeconds""}}, "jpn": {...}}
     }
@@ -140,6 +142,7 @@ async function createWindow() {
          fs.writeFileSync(USER_DATA_FILE_PATH, JSON.stringify(args));
     });
     ipcMain.handle('enable-dev-tools', (event, args) => {win.webContents.openDevTools();});
+    ipcMain.handle('set-full-screen', (event, val) => {win.setFullScreen(val)});
     ipcMain.handle('start-loading-stream', (event, options) => {return videoServer.startLoadingStream(options)});
     ipcMain.handle('get-video-info', (event, simplified) => {return videoServer.getVideoInfo(simplified)});
     ipcMain.handle('get-subtitle-track-from-file', (event, filepath, language) => {return videoServer.getSubtitleTrackFromFile(filepath, language)});

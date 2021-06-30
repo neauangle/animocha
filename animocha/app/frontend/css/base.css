@@ -166,6 +166,9 @@ button {
 button:not(:disabled) {
     cursor: pointer;
 }
+input[type="checkbox"]:not(:disabled) {
+    cursor: pointer;
+}
 
 button:not(:disabled):hover {
     opacity: 0.8;
