@@ -7,7 +7,7 @@ A minimalistic video player inspired by [Animelon](http://animelon.com/). Theore
 - Built-in, conjugation-aware dictionary (simply select any text to look it up)
 - Change font sizes
 
-![Screenshot](/screenshot.jpg?raw=true)
+![Screenshot](screenshot.png?raw=true)
 
 ### Notes
 - Although Animocha supports pretty much all video formats through FFmpeg, this requires live transcoding. You will therefore suffer a significant performace hit. There is an inbuilt tool to convert videos to HTML-friendly video formats, which work natively.
