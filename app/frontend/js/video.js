@@ -493,6 +493,10 @@ let hls;
 
 
 function changeState(newState){
+    if (state === STATE.PRELOADED){
+        NeauangleVideo.UTIL.fadeObjectOutFast(bigPlayButton);
+        bigPlayButton.classList.add('neauangle-disabled');
+    }
     state = newState;
 }
 
@@ -744,10 +748,6 @@ function replaceVideoPlayer() {
 
 async function seek(seekSeconds, forceBufferInvalid=false){
     console.log(state);
-    if (state === STATE.PRELOADED){
-        NeauangleVideo.UTIL.fadeObjectOutFast(bigPlayButton);
-        bigPlayButton.classList.add('neauangle-disabled');
-    }
     const oldState = state;
     changeState(STATE.SEEKING); 
 
@@ -810,19 +810,17 @@ async function seek(seekSeconds, forceBufferInvalid=false){
 bigPlayButton.addEventListener('click', (ev) => {
     if (!bigPlayButton.classList.contains('neauangle-disabled')){
         videoPlayer.play();
-        NeauangleVideo.UTIL.fadeObjectOutFast(bigPlayButton);
-        bigPlayButton.classList.add('neauangle-disabled');
     }
 });
 
 
 
-//does nothing if not in state pause or play
+//does nothing if not in state pause, play or preloaded
 function togglePausePlay(){
     if (state === STATE.PLAYING){
         videoPlayer.pause();
     
-    } else if (state === STATE.PAUSED){
+    } else if (state === STATE.PAUSED || state === STATE.PRELOADED){
         videoPlayer.play();
     }
 }
@@ -1084,25 +1082,19 @@ function updateVideoProgress(currentSeconds){
                     const language = subtitleTrack.language;
                     const position = (entry.an === '8' || entry.a === '6') ? 'top' : 'bottom';
                     const subtitleContainer = subtitleTreeInfo[position][language].container;
-                    //we default to tracking the japanese because there are many cases where there might be
-                    //multiple english lines per japanese line. 
-                    if (!(keepToCurrentSubtitleBecauseMouseOverSubtitles === subtitleContainer.parentElement
-                    && (language === 'jpn' || !subtitleTracks['jpn'].exists
-                    || subtitleTreeInfo['bottom']['jpn'].container.style.display === 'none'))){
-                        const currentEntries = subtitleTreeInfo[position][language].currentEntries;
-                        if (subtitleContainer.innerHTML.indexOf(entry.dialogue) === -1){
-                            if (!currentEntries.includes(entry)){
-                                currentEntries.push(entry);
-                            }
-                            
-                            if (subtitleContainer.innerHTML.length > 0){
-                                subtitleContainer.innerHTML += "<br>";
-                            }
-                            subtitleContainer.innerHTML += entry.dialogue + "";
-                            subtitleTrack.lastActiveIndexCache = i;
-                            emitEvent(NeauangleVideo.EVENTS.NEW_CURRENT_SUBTITLE_ENTRY, {language, entry});
+                    const currentEntries = subtitleTreeInfo[position][language].currentEntries;
+                    if (subtitleContainer.innerHTML.indexOf(entry.dialogue) === -1){
+                        if (!currentEntries.includes(entry)){
+                            currentEntries.push(entry);
                         }
-                    } 
+                        
+                        if (subtitleContainer.innerHTML.length > 0){
+                            subtitleContainer.innerHTML += "<br>";
+                        }
+                        subtitleContainer.innerHTML += entry.dialogue + "";
+                        subtitleTrack.lastActiveIndexCache = i;
+                        emitEvent(NeauangleVideo.EVENTS.NEW_CURRENT_SUBTITLE_ENTRY, {language, entry});
+                    }
                 }
             } 
         }

@@ -202,6 +202,7 @@ async function startLoadingStream(options){
     i += 1;
 
     let videoInfo = await getVideoInfo(options.path, true);
+    console.log(videoInfo);
     let videoStreamIndex = 0;
     if (videoInfo.videoStreams.length > 0){
         videoStreamIndex = videoInfo.videoStreams[0].index;
@@ -236,11 +237,18 @@ async function startLoadingStream(options){
     if (options.isFirstInit){
         let subtitleTracks = {'jpn': [], 'eng': []};
         for (let subtitleTrack of videoInfo.subtitleStreams){
+            console.log('here', subtitleTrack.codecName);
             if (subtitleTrack.language === 'jpn' || subtitleTrack.language === 'eng'){
-                if (subtitleTrack.codecName === 'ass' || subtitleTrack.codecName === 'ssa' || subtitleTrack.codecName === 'srt'){
+                //image-based
+                if (subtitleTrack.codecName !== 'dvb_subtitle' 
+                && subtitleTrack.codecName !== 'dvd_subtitle'       
+                && subtitleTrack.codecName !== 'hdmv_pgs_subtitle'   
+                && subtitleTrack.codecName !== 'xsub'   
+                //I heard this was a pia to deal with so meh it's out
+                && subtitleTrack.codecName !== 'eia_608'
+                ){
                     subtitleTracks[subtitleTrack.language].push(subtitleTrack);
                 }
-                
             }
         }
         if (subtitleTracks['eng'].length > 1 || subtitleTracks['jpn'].length > 1){
@@ -260,7 +268,7 @@ async function startLoadingStream(options){
         }
 
         main.passIPCToClientSide('subtitles-ready', subtitles);
-    
+        
         //these lists are almost assuredly not complete.
         const supportedFormats = ['mp4', 'move', 'ogg', 'webm', 'mpeg', 'mp3', 'wav', 'mkv'];
         const supportedVideoCodecs = ['h264', 'theora', 'vp8', 'vp9', 'flv1'];

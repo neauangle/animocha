@@ -427,7 +427,7 @@ backgroundAlphaInput.addEventListener('change', event => {
 
 setTooltip(clearSettingsButton, "Clear subtitle file and offset<br>info for this video file", {bottomPadding: '15px'});
 clearSettingsButton.addEventListener('click', e => {
-    delete userData.files[ficurrentVideoFileNameleName];
+    delete userData.files[currentVideoFileName];
     clearSettingsButton.disabled = true;
     clearSettingsButton.innerHTML = "Cleared";
     saveOutUserData();
