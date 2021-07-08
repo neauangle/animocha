@@ -131,6 +131,19 @@ a {
     overflow-y: scroll;
 }
 
+#dictionary-entry-container {
+
+}
+
+#dictionary-search-input-container {
+    padding: 5px;
+}
+
+#dictionary-search-input {
+    padding: 0 5px;
+    height: 2em;
+}
+
 #dictionary-subtitles-separator {
     height: 5px;
     cursor: ns-resize;

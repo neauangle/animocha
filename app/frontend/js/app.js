@@ -7,6 +7,9 @@ const leftCell = document.getElementById('left-cell');
 const rightCell = document.getElementById('right-cell');
 const leftRightSeparator = document.getElementById("left-right-separator");
 const dictionaryPanel =  document.getElementById('dictionary-panel');
+const dictionaryEntryContainer =  document.getElementById('dictionary-entry-container');
+const dictionarySearchInput =  document.getElementById('dictionary-search-input');
+
 const subtitlesPanel =  document.getElementById('subtitles-panel');
 let subtitleRowsContainer = document.getElementById('subtitle-rows-container');
 const tooltipShell = document.getElementById("tooltip-shell");
@@ -105,18 +108,22 @@ document.addEventListener('mouseup', () => {
     const selection = document.getSelection().toString();
     document.getSelection().empty();
     if (selection){
-        dictionaryPanel.innerHTML = Search.getHTMLStringFromSearchResult(Search.searchWord(selection));
-       for (element of document.getElementsByClassName('search-result-vocab-entry-sense-header')){
-            if (element.hasAttribute('title')){
-                const tooltip = element.getAttribute('title').split('\n').join('<br/>');
-                setTooltip(element, tooltip, {textAlign: 'left'});
-                element.removeAttribute('title');
-            }
-        }
+        performDictionaryLookup(selection)
     }
 
     
 })
+
+function performDictionaryLookup(searchTerm){
+    dictionaryEntryContainer.innerHTML = Search.getHTMLStringFromSearchResult(Search.searchWord(searchTerm));
+    for (let element of document.getElementsByClassName('search-result-vocab-entry-sense-header')){
+        if (element.hasAttribute('title')){
+            const tooltip = element.getAttribute('title').split('\n').join('<br/>');
+            setTooltip(element, tooltip, {textAlign: 'left'});
+            element.removeAttribute('title');
+        }
+    }
+}
 
 
 document.getElementById('dev-tools-button').addEventListener("click", event => { window.bridge.enableDevTools();});
@@ -514,7 +521,12 @@ function handleConversionProgress(currentSeconds, durationSeconds){
 
 
 
+dictionarySearchInput.addEventListener('change', event => {
+    performDictionaryLookup(dictionarySearchInput.value);
+    dictionarySearchInput.style.display = 'none';
+    //dictionarySearchInput.value = '';
 
+});
 
 
 
@@ -525,6 +537,7 @@ document.addEventListener('keydown', (e) => {
     } else if (e.code=== "F11"){
         fullScreenInput.checked = !fullScreenInput.checked;
         window.bridge.setFullScreen(fullScreenInput.checked);
+    
     } else if (e.code=== "KeyJ"){
         if (video.subtitlesExist('jpn')){
             bottomPanelSubtitleControls.jpn.visibilityToggle.click();
@@ -533,6 +546,9 @@ document.addEventListener('keydown', (e) => {
         if (video.subtitlesExist('eng')){
             bottomPanelSubtitleControls.eng.visibilityToggle.click();
         }
+
+    } else if (e.code=== "KeyS"){
+        dictionarySearchInput.style.display = 'block';
     }
 });
 

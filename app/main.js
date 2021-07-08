@@ -11,7 +11,6 @@ Initial setup was:
 TODO:
 --estimated completion: 0.5 - 1 months
     * icon (dave?)
-    * shortcut keys to toggle subs visibility
     * anki exportation
     * add search text input for dictionary?
         * make it come out from top right
@@ -31,7 +30,7 @@ const fs = require('fs');
 const path = require("path");
 const videoServer = require('./video-server');
 //automatically refresh electron windows when files change (are saved)
-//require('electron-reload')(__dirname);
+require('electron-reload')(__dirname);
 Menu.setApplicationMenu(null);
 const USER_DATA_FILE_PATH = app.getPath("userData") + "\\config.json";
 const userData = {
