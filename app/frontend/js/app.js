@@ -522,10 +522,17 @@ document.addEventListener('keydown', (e) => {
     if (e.code=== "Escape"){
         fullScreenInput.checked = false;
         window.bridge.setFullScreen(fullScreenInput.checked);
-    }
-    if (e.code=== "F11"){
+    } else if (e.code=== "F11"){
         fullScreenInput.checked = !fullScreenInput.checked;
         window.bridge.setFullScreen(fullScreenInput.checked);
+    } else if (e.code=== "KeyJ"){
+        if (video.subtitlesExist('jpn')){
+            bottomPanelSubtitleControls.jpn.visibilityToggle.click();
+        }
+    } else if (e.code=== "KeyE"){
+        if (video.subtitlesExist('eng')){
+            bottomPanelSubtitleControls.eng.visibilityToggle.click();
+        }
     }
 });
 
