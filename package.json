@@ -15,7 +15,7 @@
     "url": "git+https://github.com/mudbile/animocha.git"
   },
   "author": "Daniel Dowsett",
-  "license": "ISC",
+  "license": "GPLv3",
   "bugs": {
     "url": "https://github.com/mudbile/animocha/issues"
   },

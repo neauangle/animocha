@@ -11,6 +11,8 @@ Initial setup was:
 TODO:
 --estimated completion: 0.5 - 1 months
     * icon (dave?)
+    * shortcut keys to toggle subs visibility
+    * anki exportation
     * add search text input for dictionary?
         * make it come out from top right
     * add search for subtitle entries?

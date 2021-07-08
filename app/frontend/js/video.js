@@ -743,7 +743,8 @@ function replaceVideoPlayer() {
 
 
 async function seek(seekSeconds, forceBufferInvalid=false){
-    if (state == STATE.PRELOADED){
+    console.log(state);
+    if (state === STATE.PRELOADED){
         NeauangleVideo.UTIL.fadeObjectOutFast(bigPlayButton);
         bigPlayButton.classList.add('neauangle-disabled');
     }
@@ -754,7 +755,7 @@ async function seek(seekSeconds, forceBufferInvalid=false){
     if (currentVideoIsUsingHTMLNativeVideo || (!forceBufferInvalid && (seekSeconds >= lowBufferThresholdSeconds && seekSeconds <= highBufferThresholdSeconds))){
         updateVideoProgress(seekSeconds);
         videoPlayer.currentTime = seekSeconds-lowBufferThresholdSeconds;
-        changeState(oldState);
+        changeState(oldState === STATE.PRELOADED ? STATE.PAUSED : oldState);
     } else { 
         lowBufferThresholdSeconds = seekSeconds;
         highBufferThresholdSeconds = seekSeconds;
@@ -768,7 +769,7 @@ async function seek(seekSeconds, forceBufferInvalid=false){
         
         let promise = new Promise((resolve, b) => {
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                changeState(oldState);
+                changeState(oldState === STATE.PRELOADED ? STATE.PAUSED : oldState);
                 playPauseButton.src = state === STATE.PAUSED ?  playSVGPath : pauseSVGPath;
                 if (subtitleContainerThatMouseIsOver){
                     keepToCurrentSubtitleBecauseMouseOverSubtitles = subtitleContainerThatMouseIsOver;
@@ -982,9 +983,9 @@ function getMouseSeekProportionAndRelativeX(){
 
 progressBarBackground.addEventListener('click', async (e) => {
     if (state === STATE.PLAYING || state === STATE.PAUSED || state == STATE.PRELOADED){
-        if (state == STATE.PRELOADED){
+        /* if (state == STATE.PRELOADED){
             changeState(STATE.PAUSED); //needed so when we return from seek, we dont go to PRELOADED state
-        }
+        } */
         let seekSeconds = 0;
         if (seekPreviewTime.innerText){
             const fields = seekPreviewTime.innerText.split(':');
