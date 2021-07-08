@@ -1,16 +1,21 @@
 # Animocha
-A simple dual-subtitle video player inspired by [Animelon](http://animelon.com/). Theoretically cross-platform with some tiny tweaks, but I do not own a mac.
+A simple dual-subtitle video player inspired by [Animelon](http://animelon.com/). Theoretically cross-platform with some tweaks, but I do not own a mac.
 
 ### Features
 
-- Dual subtitles
-- Built-in, conjugation-aware dictionary (simply select any text to look it up)
+- Dual subtitles with visibility toggles (and keyboard shortcuts `j` & `e` )
+- `A` and `W` navigate by subtitle line
+- Automatically pauses at the end of a subtitle line if mouse is over subtitles
+- Concurrent subtitle lines (two characters talking at the same time, etc.)
+- Resizeable panes
+- Built-in, conjugation-aware dictionary (select text to automatically look it up)
 - Change font sizes and whatnot
+- Supports most codecs (including h.265 video)
+
 
 ![Screenshot](screenshot.png?raw=true)
 
 ### Notes
-- Although Animocha supports pretty much all video formats through FFmpeg, this requires live transcoding. You will therefore suffer a significant performance hit. There is an inbuilt tool to convert videos to HTML-friendly video formats which work natively (that's what the "download" icon is).
 
 - Animocha is currently very alpha. Please let me know if you like it or why you hate it or what you would like to see included in the future.
 
