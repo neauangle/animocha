@@ -3,7 +3,7 @@ A simple dual-subtitle video player inspired by [Animelon](http://animelon.com/)
 
 ### Features
 
-- Dual subtitles with visibility toggles (and keyboard shortcuts `j` & `e` )
+- Dual subtitles with visibility toggles (and keyboard shortcuts `J` & `E` )
 - `A` and `W` navigate by subtitle line
 - Automatically pauses at the end of a subtitle line if mouse is over subtitles
 - Concurrent subtitle lines (two characters talking at the same time, etc.)

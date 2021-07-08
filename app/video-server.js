@@ -202,7 +202,7 @@ async function startLoadingStream(options){
     i += 1;
 
     let videoInfo = await getVideoInfo(options.path, true);
-    console.log(videoInfo);
+    //console.log(videoInfo);
     let videoStreamIndex = 0;
     if (videoInfo.videoStreams.length > 0){
         videoStreamIndex = videoInfo.videoStreams[0].index;

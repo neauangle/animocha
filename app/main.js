@@ -12,8 +12,6 @@ TODO:
 --estimated completion: 0.5 - 1 months
     * icon (dave?)
     * anki exportation
-    * add search text input for dictionary?
-        * make it come out from top right
     * add search for subtitle entries?
     * release gihub page, with pictures and feature list.
     * when video is not transcoded (e.g. video game doc), its height can exceed the bounds rather than showing vertical black bars
@@ -30,7 +28,7 @@ const fs = require('fs');
 const path = require("path");
 const videoServer = require('./video-server');
 //automatically refresh electron windows when files change (are saved)
-require('electron-reload')(__dirname);
+//require('electron-reload')(__dirname);
 Menu.setApplicationMenu(null);
 const USER_DATA_FILE_PATH = app.getPath("userData") + "\\config.json";
 const userData = {
