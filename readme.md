@@ -15,9 +15,10 @@ A simple dual-subtitle video player inspired by [Animelon](http://animelon.com/)
 
 ![Screenshot](screenshot.png?raw=true)
 
-### Notes
+### Installation
 
-- Animocha is currently very alpha. Please let me know if you like it or why you hate it or what you would like to see included in the future.
+Go to the [Releases](https://github.com/mudbile/animocha/releases) page. The releases are listed with the newest release first. Click the Assets expando for the newest release. Since version v0.0.3, there should be a 7-zip archive and a standalone portable executable with everything packed inside (there will also be source file archives, which you can ignore). Either is fine. In my experience, the portable version is slower to start. If you go for the unpacked version, download the 7-zip archive, unzip and move the contents to *C:\Program Files* (or wherever).
+
 
 ### With Thanks To
 - [FFmpeg](http://ffmpeg.org) developers

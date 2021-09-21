@@ -10,6 +10,9 @@ Initial setup was:
 
 TODO:
 --estimated completion: 0.5 - 1 months
+    * add option to pause after every subtitle (github issue)
+    * copy plaintext to clipboard when selected
+    * change titlebar to reflect current video title
     * icon (dave?)
     * anki exportation
     * add search for subtitle entries?

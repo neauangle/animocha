@@ -1,6 +1,6 @@
 {
   "name": "animocha",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple dual-subtitle video player inspired by Animelon.",
   "main": "app/main.js",
   "scripts": {
