@@ -1,6 +1,13 @@
 # Animocha
 A simple dual-subtitle video player inspired by [Animelon](http://animelon.com/). Theoretically cross-platform with some tweaks, but I do not own a mac.
 
+
+### Installation
+
+Go to the [Releases](https://github.com/mudbile/animocha/releases) page. The releases are listed with the newest release first. Click the Assets expando for the newest release, download the win64.zip archive, unzip the contents and move it to *C:\Program Files* (or wherever).
+
+
+
 ### Features
 
 - Dual subtitles with visibility toggles (and keyboard shortcuts `J` & `E` )
@@ -14,10 +21,6 @@ A simple dual-subtitle video player inspired by [Animelon](http://animelon.com/)
 
 
 ![Screenshot](screenshot.png?raw=true)
-
-### Installation
-
-Go to the [Releases](https://github.com/mudbile/animocha/releases) page. The releases are listed with the newest release first. Click the Assets expando for the newest release. Since version v0.0.3, there should be a 7-zip archive and a standalone portable executable with everything packed inside (there will also be source file archives, which you can ignore). Either is fine. In my experience, the portable version is slower to start. If you go for the unpacked version, download the 7-zip archive, unzip and move the contents to *C:\Program Files* (or wherever).
 
 
 ### With Thanks To
